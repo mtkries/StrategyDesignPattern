@@ -8,9 +8,18 @@ public class TrafficDriver {
 		myIntersection.GenerateTraffic(true);
 		myIntersection.runAlgorithm(true);
 		while(true){
-			myIntersection.print();
+			//myIntersection.print();
+			if(myIntersection.totalNumberOfCars() > 15 && lightTrafficAlgorithmEnabled(myIntersection)){
+				myIntersection.setAlgorithm(new HeavyTrafficAlgorithm());
+			}
+			if(myIntersection.totalNumberOfCars() <5 && !lightTrafficAlgorithmEnabled(myIntersection) ){
+				myIntersection.setAlgorithm(new LightTrafficAlgorithm());
+			}
 		}
 		
 		
 	}
+	public static boolean lightTrafficAlgorithmEnabled(Intersection myIntersection){
+		return myIntersection.getAlgo().getAlgoName().equals("Light Traffic Algorithm");
+}
 }
